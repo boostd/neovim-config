@@ -1,3 +1,6 @@
+-- Map leader key
+vim.g.mapleader = " "
+
 -- Easy way to exit file into current directory
 vim.keymap.set("n", "<leader>pv", vim.cmd.E)
 
