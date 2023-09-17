@@ -6,7 +6,7 @@ lsp.ensure_installed({
   'tsserver',
   'rust_analyzer',
   'eslint',
-  'lua-language-server',
+  'lua_ls',
   'jdtls'
 })
 
