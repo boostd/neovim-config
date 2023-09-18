@@ -51,8 +51,8 @@ vim.opt.incsearch = true
 vim.opt.updatetime = 50
 
 
--- Line length guidance of 80
-vim.opt.colorcolumn = "80"
+-- Line length guidance
+vim.opt.colorcolumn = "140"
 
 
 -- Map leader key to spacebar
