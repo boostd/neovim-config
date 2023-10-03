@@ -49,7 +49,7 @@ vim.keymap.set("n", "<leader><leader>", function()
 end)
 
 -- Efficient movement between windows
-vim.keymap.set({"n", "v", "i"}, "<leader>hh", "<C-w>h")
-vim.keymap.set({"n", "v", "i"}, "<leader>ll", "<C-w>l")
-vim.keymap.set({"n", "v", "i"}, "<leader>kk", "<C-w>k")
-vim.keymap.set({"n", "v", "i"}, "<leader>jj", "<C-w>j")
+vim.keymap.set({"n", "v"}, "<leader>hh", "<C-w>h")
+vim.keymap.set({"n", "v"}, "<leader>ll", "<C-w>l")
+vim.keymap.set({"n", "v"}, "<leader>kk", "<C-w>k")
+vim.keymap.set({"n", "v"}, "<leader>jj", "<C-w>j")

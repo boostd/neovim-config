@@ -42,9 +42,12 @@ if vim.fn.has("persistent_undo") == 1 then
 end
 
 
--- Incremental search with no highlight
+-- Incremental search with no highlight. Also enables smartcase
 vim.opt.hlsearch = false
 vim.opt.incsearch = true
+
+vim.o.ignorecase = true
+vim.o.smartcase = true
 
 
 -- Fast updates
