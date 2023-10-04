@@ -46,6 +46,9 @@ return require('packer').startup(function(use)
   -- Git integration
   use('tpope/vim-fugitive')
 
+  -- Auto-brackets
+  use('m4xshen/autoclose.nvim')
+
 
   -- LSP support
   use {
