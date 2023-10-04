@@ -2,7 +2,7 @@
 vim.g.mapleader = " "
 
 -- Easy way to exit file into current directory
-vim.keymap.set("n", "<leader>pv", vim.cmd.E)
+vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
 -- Map <A-j> and <A-k> to move lines up and down respectively
 vim.keymap.set('n', '<A-j>', ':m .+1<CR>==')
