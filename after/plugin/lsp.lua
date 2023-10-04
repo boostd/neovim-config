@@ -1,5 +1,6 @@
 local lsp_zero = require('lsp-zero')
 
+-- Set up keybinds to be used dynamically use LSP when it is available. Otherwise tries best guess Neovim interpretation.
 lsp_zero.on_attach(function(client, bufnr)
   local opts = {buffer = bufnr, remap = false}
 
@@ -15,24 +16,33 @@ lsp_zero.on_attach(function(client, bufnr)
   vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
 end)
 
+-- Set up LSPs using lsp-zero and Mason
 require('mason').setup({})
 require('mason-lspconfig').setup({
   ensure_installed = {
-  'tsserver',
   'rust_analyzer',
-  'eslint',
+  'eslint_d',
+  'prettierd',
   'lua_ls',
-  'jdtls'
-},
+  'jdtls',
+  'volar'
+  },
   handlers = {
     lsp_zero.default_setup,
     lua_ls = function()
       local lua_opts = lsp_zero.nvim_lua_ls()
       require('lspconfig').lua_ls.setup(lua_opts)
     end,
-  }
+  },
+
 })
 
+-- Use Volar in Take Over Mode (meaning Volar also handles TypeScript)
+require'lspconfig'.volar.setup{
+  filetypes = {'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'json'}
+}
+
+-- Set up autocomplete
 local cmp = require('cmp')
 local cmp_select = {behavior = cmp.SelectBehavior.Select}
 
