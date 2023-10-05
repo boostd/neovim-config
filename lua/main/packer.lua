@@ -52,6 +52,12 @@ return require('packer').startup(function(use)
   -- Java LSP setup
   use('mfussenegger/nvim-jdtls')
 
+  -- LuaLine statusline
+  use {
+    'nvim-lualine/lualine.nvim',
+    requires = { 'nvim-tree/nvim-web-devicons', opt = true }
+  }
+
 
   -- LSP support
   use {
