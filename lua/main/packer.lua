@@ -49,6 +49,9 @@ return require('packer').startup(function(use)
   -- Auto-brackets
   use('m4xshen/autoclose.nvim')
 
+  -- Java LSP setup
+  use('mfussenegger/nvim-jdtls')
+
 
   -- LSP support
   use {

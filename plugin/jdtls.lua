@@ -1,4 +1,4 @@
---[[local java_cmds = vim.api.nvim_create_augroup('java_cmds', {clear = true})
+local java_cmds = vim.api.nvim_create_augroup('java_cmds', {clear = true})
 local cache_vars = {}
 
 local root_files = {
@@ -80,21 +80,38 @@ local function get_jdtls_paths()
   -- Useful if you're starting jdtls with a Java version that's 
   -- different from the one the project uses.
   ---
-  path.runtimes = {
-    -- Note: the field `name` must be a valid `ExecutionEnvironment`,
-    -- you can find the list here: 
-    -- https://github.com/eclipse/eclipse.jdt.ls/wiki/Running-the-JAVA-LS-server-from-the-command-line#initialize-request
-    --
-    -- This example assume you are using sdkman: https://sdkman.io
-    -- {
-    --   name = 'JavaSE-17',
-    --   path = vim.fn.expand('~/.sdkman/candidates/java/17.0.6-tem'),
-    -- },
-    -- {
-    --   name = 'JavaSE-18',
-    --   path = vim.fn.expand('~/.sdkman/candidates/java/18.0.2-amzn'),
-    -- },
+  -- Note: the field `name` must be a valid `ExecutionEnvironment`,
+  -- you can find the list here: 
+  -- https://github.com/eclipse/eclipse.jdt.ls/wiki/Running-the-JAVA-LS-server-from-the-command-line#initialize-request
+  ---
+  -- Define JDK paths for Windows
+  local windows_paths = {
+    {
+      name = 'JavaSE-17',
+      path = 'C:\\Program Files\\Java\\jdk-17',
+    }
+    -- Add more Windows-specific paths as needed
   }
+
+  -- Define JDK paths for Unix (using sdkman as example)
+  local mac_unix_paths = {
+    {
+      name = 'JavaSE-17',
+      path = vim.fn.expand('~/.sdkman/candidates/java/17.0.6-tem'),
+    },
+    {
+      name = 'JavaSE-18',
+      path = vim.fn.expand('~/.sdkman/candidates/java/18.0.2-amzn'),
+    }
+    -- Add more Unix-specific paths as needed
+  }
+
+  -- Checking if running on Windows or UNIX-like systems
+  if vim.fn.has('win32') == 1 then
+    path.runtimes = windows_paths
+  else
+    path.runtimes = mac_unix_paths
+  end
 
   cache_vars.paths = path
 
@@ -134,7 +151,7 @@ local function jdtls_on_attach(client, bufnr)
 
   -- The following mappings are based on the suggested usage of nvim-jdtls
   -- https://github.com/mfussenegger/nvim-jdtls#usage
-  
+
   local opts = {buffer = bufnr}
   vim.keymap.set('n', '<A-o>', "<cmd>lua require('jdtls').organize_imports()<cr>", opts)
   vim.keymap.set('n', 'crv', "<cmd>lua require('jdtls').extract_variable()<cr>", opts)
@@ -179,7 +196,7 @@ local function jdtls_setup(event)
     'java.base/java.util=ALL-UNNAMED',
     '--add-opens',
     'java.base/java.lang=ALL-UNNAMED',
-    
+
     -- 💀
     '-jar',
     path.launcher_jar,
@@ -283,4 +300,3 @@ vim.api.nvim_create_autocmd('FileType', {
   desc = 'Setup jdtls',
   callback = jdtls_setup,
 })
-]]--
