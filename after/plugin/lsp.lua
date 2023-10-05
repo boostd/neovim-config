@@ -16,6 +16,9 @@ lsp_zero.on_attach(function(client, bufnr)
   vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
 end)
 
+-- We will set up java LSP manually in ../jdtls.lua
+lsp_zero.skip_server_setup({'jdtls'})
+
 -- Set up LSPs using lsp-zero and Mason
 require('mason').setup({})
 require('mason-lspconfig').setup({
