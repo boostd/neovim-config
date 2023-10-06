@@ -1,5 +1,11 @@
--- Treesitter config
+-- Use curl and tar for Windows as well
+require 'nvim-treesitter.install'.prefer_git = false
 
+-- Use clang as the compiler of parsers
+require 'nvim-treesitter.install'.compilers = { "clang" }
+
+
+-- Treesitter config
 require'nvim-treesitter.configs'.setup {
   -- A list of parser names, or "all" (the five listed parsers should always be installed)
   ensure_installed = { "vimdoc", "javascript", "typescript", "java", "python", "c", "lua", "vim", "vimdoc", "query" },
