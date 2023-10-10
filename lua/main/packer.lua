@@ -38,7 +38,10 @@ return require('packer').startup(function(use)
   use('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
 
   -- Harpoon
-  use('ThePrimeagen/harpoon')
+  -- Using a fork of the main plugin which provides truncation
+  use {
+    'ujkan/harpoon', branch = 'feature/truncate'
+  }
 
   -- Undo tree
   use('mbbill/undotree')
