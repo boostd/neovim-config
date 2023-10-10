@@ -1,7 +1,25 @@
 -- This file can be loaded by calling `lua require('plugins')` from your init.vim
 
+-- Automatically install Packer on startup
+local ensure_packer = function()
+  local fn = vim.fn
+  local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+  if fn.empty(fn.glob(install_path)) > 0 then
+    fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+    vim.cmd [[packadd packer.nvim]]
+    return true
+  end
+  return false
+end
+
+local packer_bootstrap = ensure_packer()
+
+
+
+
 -- Only required if you have packer configured as `opt`
 vim.cmd [[packadd packer.nvim]]
+
 
 return require('packer').startup(function(use)
   -- Packer can manage itself
@@ -61,6 +79,20 @@ return require('packer').startup(function(use)
     requires = { 'nvim-tree/nvim-web-devicons', opt = true }
   }
 
+  -- Flash.nvim
+  use {
+    'folke/flash.nvim',
+    opts = {},
+    keys = {
+      { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+      { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+      { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
+      { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+      { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+    },
+  }
+
+
 
   -- LSP support
   use {
@@ -78,6 +110,13 @@ return require('packer').startup(function(use)
 		  {'L3MON4D3/LuaSnip'},     -- Required
 	  }
   }
+
+
+
+  -- Automatically install plugins on first startup
+  if packer_bootstrap then
+    require('packer').sync()
+  end
 
 end)
 
