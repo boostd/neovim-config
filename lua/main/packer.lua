@@ -82,15 +82,23 @@ return require('packer').startup(function(use)
   -- Flash.nvim
   use {
     'folke/flash.nvim',
-    opts = {},
-    keys = {
-      { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
-      { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
-      { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
-      { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
-      { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
-    },
+    config = function()
+      local set_keymap = vim.keymap.set
+      local opts = { noremap = true, silent = true }
+
+      set_keymap("n", "s", "<cmd>lua require('flash').jump()<cr>", opts)
+      set_keymap("x", "s", "<cmd>lua require('flash').jump()<cr>", opts)
+      set_keymap("o", "s", "<cmd>lua require('flash').jump()<cr>", opts)
+      set_keymap("n", "S", "<cmd>lua require('flash').treesitter()<cr>", opts)
+      set_keymap("x", "S", "<cmd>lua require('flash').treesitter()<cr>", opts)
+      set_keymap("o", "S", "<cmd>lua require('flash').treesitter()<cr>", opts)
+      set_keymap("o", "r", "<cmd>lua require('flash').remote()<cr>", opts)
+      set_keymap("o", "R", "<cmd>lua require('flash').treesitter_search()<cr>", opts)
+      set_keymap("x", "R", "<cmd>lua require('flash').treesitter_search()<cr>", opts)
+      set_keymap("c", "<c-s>", "<cmd>lua require('flash').toggle()<cr>", opts)
+    end,
   }
+
 
 
 
