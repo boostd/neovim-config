@@ -1,4 +1,4 @@
-require("main.remap")
-require("main.set")
-require("main.packer")
+require("boostd.remap")
+require("boostd.set")
+require("boostd.packer")
 
