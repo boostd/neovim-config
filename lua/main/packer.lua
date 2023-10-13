@@ -75,6 +75,9 @@ return require('packer').startup(function(use)
     requires = { 'nvim-tree/nvim-web-devicons', opt = true }
   }
 
+  -- Monitor startup time
+  use('dstein64/vim-startuptime')
+
   -- Flash.nvim
   use {
     'folke/flash.nvim',
@@ -94,8 +97,6 @@ return require('packer').startup(function(use)
       set_keymap("c", "<c-s>", "<cmd>lua require('flash').toggle()<cr>", opts)
     end,
   }
-
-  use('dstein64/vim-startuptime')
 
 
 
