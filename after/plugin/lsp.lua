@@ -1,4 +1,5 @@
 local lsp_zero = require('lsp-zero')
+local lsp_config = require('lspconfig')
 
 -- Set up keybinds to be used dynamically use LSP when it is available. Otherwise tries best guess Neovim interpretation.
 lsp_zero.on_attach(function(client, bufnr)
@@ -33,14 +34,14 @@ require('mason-lspconfig').setup({
     lsp_zero.default_setup,
     lua_ls = function()
       local lua_opts = lsp_zero.nvim_lua_ls()
-      require('lspconfig').lua_ls.setup(lua_opts)
+      lsp_config.lua_ls.setup(lua_opts)
     end,
   },
 
 })
 
 -- Use Volar in Take Over Mode (meaning Volar also handles TypeScript)
-require'lspconfig'.volar.setup{
+lsp_config.volar.setup{
   filetypes = {'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'json'}
 }
 
