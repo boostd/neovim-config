@@ -17,6 +17,8 @@ vim.keymap.set('n', '<A-y>', '"*y', { silent = true })
 vim.keymap.set('n', '<A-p>', '"*p', { silent = true })
 vim.keymap.set('v', '<A-y>', '"*y', { silent = true })
 vim.keymap.set('v', '<A-p>', '"*p', { silent = true })
+vim.keymap.set('i', '<A-y>', '<Esc>"*y', { silent = true })
+vim.keymap.set('i', '<A-p>', '<Esc>"*p', { silent = true })
 
 -- Map <C-d>, <C-u>, and searching to also center the cursor
 vim.keymap.set('n', '<C-d>', '<C-d>zz')

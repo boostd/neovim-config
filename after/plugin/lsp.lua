@@ -15,6 +15,8 @@ lsp_zero.on_attach(function(client, bufnr)
   vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
   vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
   vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
+  vim.keymap.set("n", "<C-Z>", function() vim.diagnostic.goto_prev() end, opts)
+  vim.keymap.set("n", "<C-X>", function() vim.diagnostic.goto_next() end, opts)
 end)
 
 -- We will set up java LSP manually in ../jdtls.lua
