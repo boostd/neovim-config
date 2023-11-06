@@ -53,6 +53,10 @@ vim.keymap.set({"n", "v"}, "<leader>jj", "<C-w>j")
 -- Close buffers easily
 vim.keymap.set("n", "<leader>q", "<C-w>q")
 
+-- Yank and paste all text in buffer
+vim.keymap.set("n", "<leader>yy", 'ggVG"*y')
+vim.keymap.set("n", "<leader>pp", 'ggVG"*p')
+
 -- Delete all hidden, unmodified, non-terminal buffers
 vim.keymap.set("n", "<C-Q>", function()
   local api = vim.api
