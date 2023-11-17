@@ -75,6 +75,9 @@ return require('packer').startup(function(use)
     requires = { 'nvim-tree/nvim-web-devicons', opt = true }
   }
 
+  -- LSP status
+  use('j-hui/fidget.nvim')
+
   -- Monitor startup time
   use('dstein64/vim-startuptime')
 
