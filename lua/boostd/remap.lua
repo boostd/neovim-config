@@ -57,8 +57,8 @@ vim.keymap.set({"n", "v"}, "<leader>jj", "<C-w>j")
 vim.keymap.set("n", "<leader>q", "<C-w>q")
 
 -- Yank and paste all text in buffer
-vim.keymap.set("n", "<leader>yy", 'ggVG"*y')
-vim.keymap.set("n", "<leader>pp", 'ggVG"*p')
+vim.keymap.set("n", "<leader>yy", 'ggVG"*y<C-o>')
+vim.keymap.set("n", "<leader>pp", 'ggVG"*p<C-o>')
 
 -- Delete all hidden, unmodified, non-terminal buffers
 vim.keymap.set("n", "<C-Q>", function()
