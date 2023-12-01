@@ -82,6 +82,22 @@ vim.keymap.set("n", "<C-Q>", function()
   api.nvim_out_write(string.format("Deleted %d hidden and unmodified buffers\n", count))
 end, { desc = "Delete all unmodified hidden buffers" })
 
+-- Replace the first pattern with the second pattern from the quick fix list.
+vim.keymap.set("n", "<leader>pr", function()
+  local pattern = vim.fn.input("Enter the pattern to replace: ")
+  local replacement = vim.fn.input("Enter the replacement: ")
+
+  vim.cmd("cdo s/" .. pattern .. "/" .. replacement .. "/g")
+end, { desc = "Replace the first pattern with the second pattern from the quick fix list." })
+
+-- Replace the selection with the pattern from the quick fix list
+vim.keymap.set("x", "<leader>pr", function()
+  local pattern = vim.getVisualSelection()
+  local replacement = vim.fn.input("Enter the replacement: ")
+
+  vim.cmd("cdo s/" .. pattern .. "/" .. replacement .. "/g")
+end, { desc = "Replace the selection with the pattern from the quick fix list" })
+
 
 -- Quick Fix navigation
 -- Seems unnecessary at the moment??
