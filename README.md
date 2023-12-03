@@ -1,9 +1,9 @@
 ## Installation
 
 Packer should bootstrap itself on first startup. If it doesn't, follow instructions from [Packer documentation](https://github.com/wbthomason/packer.nvim). 
-Then run :PackerSync to download plugins. Neovim should be functional after a restart.
+Then run `:PackerSync` to download plugins. Neovim should be functional after a restart.
 
-:Mason can be used to install additional LSPs.
+`:Mason` can be used to install additional LSPs.
 
 ### WINDOWS
 Getting treesitter working is a hassle. Try these 3 things:
