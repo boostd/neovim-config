@@ -81,6 +81,9 @@ return require('packer').startup(function(use)
   -- Monitor startup time
   use('dstein64/vim-startuptime')
 
+  -- vim-illuminate
+  use('RRethy/vim-illuminate')
+
   -- Flash.nvim
   use {
     'folke/flash.nvim',
