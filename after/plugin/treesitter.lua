@@ -4,6 +4,17 @@ require 'nvim-treesitter.install'.prefer_git = false
 -- Use clang as the compiler of parsers
 require 'nvim-treesitter.install'.compilers = { "clang" }
 
+-- Add D2lang (https://github.com/terrastruct/d2) support
+local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+parser_config.d2 = {
+  install_info = {
+    url = 'https://github.com/pleshevskiy/tree-sitter-d2',
+    revision = 'main',
+    files = { 'src/parser.c', 'src/scanner.cc' },
+  },
+  filetype = 'd2',
+};
+vim.api.nvim_command [[autocmd BufNewFile,BufRead *.d2 setfiletype d2]]
 
 -- Treesitter config
 require'nvim-treesitter.configs'.setup {
