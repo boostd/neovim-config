@@ -1,4 +1,3 @@
-require("flash").setup({})
 local remap = vim.keymap.set
 
 remap({ "n", "x" }, "s", function() require("flash").jump() end)
