@@ -84,26 +84,17 @@ return require('packer').startup(function(use)
   -- vim-illuminate
   use('RRethy/vim-illuminate')
 
+  -- quick actions with surrounding
+  use({
+      "kylechui/nvim-surround",
+      tag = "*", -- Use for stability; omit to use `main` branch for the latest features
+      config = function()
+          require("nvim-surround").setup({})
+      end
+  })
+
   -- Flash.nvim
-  use {
-    'folke/flash.nvim',
-    config = function()
-      local set_keymap = vim.keymap.set
-      local opts = { noremap = true, silent = true }
-
-      set_keymap("n", "s", "<cmd>lua require('flash').jump()<cr>", opts)
-      set_keymap("x", "s", "<cmd>lua require('flash').jump()<cr>", opts)
-      set_keymap("o", "s", "<cmd>lua require('flash').jump()<cr>", opts)
-      set_keymap("n", "S", "<cmd>lua require('flash').treesitter()<cr>", opts)
-      set_keymap("x", "S", "<cmd>lua require('flash').treesitter()<cr>", opts)
-      set_keymap("o", "S", "<cmd>lua require('flash').treesitter()<cr>", opts)
-      set_keymap("o", "r", "<cmd>lua require('flash').remote()<cr>", opts)
-      set_keymap("o", "R", "<cmd>lua require('flash').treesitter_search()<cr>", opts)
-      set_keymap("x", "R", "<cmd>lua require('flash').treesitter_search()<cr>", opts)
-      set_keymap("c", "<c-s>", "<cmd>lua require('flash').toggle()<cr>", opts)
-    end,
-  }
-
+  use { 'folke/flash.nvim' }
 
 
 
