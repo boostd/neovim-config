@@ -81,6 +81,15 @@ return require('packer').startup(function(use)
     tag = 'v1.1.0'
   })
 
+  -- Fancy notifications
+  use 'rcarriga/nvim-notify'
+
+  -- Leetcode exercises in nvim
+  use {
+    'kawre/leetcode.nvim',
+    requires = { 'MunifTanjim/nui.nvim' }
+  }
+
   -- Monitor startup time
   use('dstein64/vim-startuptime')
 
