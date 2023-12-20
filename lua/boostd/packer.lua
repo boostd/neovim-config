@@ -76,7 +76,10 @@ return require('packer').startup(function(use)
   }
 
   -- LSP status
-  use('j-hui/fidget.nvim')
+  use({
+    'j-hui/fidget.nvim',
+    tag = 'v1.1.0'
+  })
 
   -- Monitor startup time
   use('dstein64/vim-startuptime')
