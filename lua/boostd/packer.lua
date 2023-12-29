@@ -64,7 +64,20 @@ return require('packer').startup(function(use)
   use('tpope/vim-fugitive')
 
   -- Auto-brackets
-  use('m4xshen/autoclose.nvim')
+  use {
+      'altermo/ultimate-autopair.nvim',
+      event={'InsertEnter','CmdlineEnter'},
+      branch='v0.6', --recomended as each new version will have breaking changes
+      config=function ()
+          require('ultimate-autopair').setup({
+            extensions={alpha={
+              p=30,
+              after=true,
+              no_python=true
+            }}
+          })
+      end,
+  }
 
   -- Java LSP setup
   use('mfussenegger/nvim-jdtls')
