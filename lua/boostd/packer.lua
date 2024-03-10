@@ -32,29 +32,24 @@ return require('packer').startup(function(use)
   use {
 	  'maxmx03/dracula.nvim',
 	  as = "dracula",
-	  config = function()
-		  local dracula = require 'dracula'
-		  dracula.setup()
-		  vim.cmd('colorscheme dracula')
-	  end
   }
 
   -- Autosave
   use({
-	  "Pocco81/auto-save.nvim",
-	  config = function()
-		  require("auto-save").setup {
-		  }
-	  end,
+    "okuuva/auto-save.nvim",
+    config = function()
+     require("auto-save").setup {}
+    end,
   })
 
   -- Treesitter
   use('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
 
   -- Harpoon
-  -- Using a fork of the main plugin which provides truncation
   use {
-    'ujkan/harpoon', branch = 'feature/truncate'
+    "ThePrimeagen/harpoon",
+    branch = "harpoon2",
+    requires = { "nvim-lua/plenary.nvim" }
   }
 
   -- Undo tree
