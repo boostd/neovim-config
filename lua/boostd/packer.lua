@@ -38,7 +38,17 @@ return require('packer').startup(function(use)
   use({
     "okuuva/auto-save.nvim",
     config = function()
-     require("auto-save").setup {}
+     require("auto-save").setup {
+      condition = function(buf)
+        local fn = vim.fn
+
+        -- don't save for special-buffers
+        if fn.getbufvar(buf, "&buftype") ~= '' then
+          return false
+        end
+        return true
+      end
+    }
     end,
   })
 
