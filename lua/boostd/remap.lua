@@ -3,6 +3,7 @@ vim.g.mapleader = " "
 
 -- Easy way to exit file into current directory
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
+vim.keymap.set("n", "<leader>ev", vim.cmd.Ex)
 
 -- Map <A-j> and <A-k> to move lines up and down respectively
 vim.keymap.set('n', '<A-j>', ':m .+1<CR>==')
@@ -55,6 +56,7 @@ vim.keymap.set({"n", "v"}, "<leader>jj", "<C-w>j")
 
 -- Close buffers easily
 vim.keymap.set("n", "<leader>q", "<C-w>q")
+vim.keymap.set("n", "<leader>c", "<C-w>q")
 
 -- Yank and paste all text in buffer
 vim.keymap.set("n", "<leader>yy", 'ggVG"*y<C-o>')
@@ -82,28 +84,42 @@ vim.keymap.set("n", "<C-Q>", function()
   api.nvim_out_write(string.format("Deleted %d hidden and unmodified buffers\n", count))
 end, { desc = "Delete all unmodified hidden buffers" })
 
--- Replace the first pattern with the second pattern from the quick fix list.
-vim.keymap.set("n", "<leader>pr", function()
+
+
+local function replaceFirstWithSecond()
   local pattern = vim.fn.input("Enter the pattern to replace: ")
   local replacement = vim.fn.input("Enter the replacement: ")
 
   vim.cmd("cdo s/" .. pattern .. "/" .. replacement .. "/g")
-end, { desc = "Replace the first pattern with the second pattern from the quick fix list." })
+end
 
--- Replace the selection with the pattern from the quick fix list
-vim.keymap.set("x", "<leader>pr", function()
+local function replaceSelectionWithInput()
   local pattern = vim.getVisualSelection()
   local replacement = vim.fn.input("Enter the replacement: ")
 
   vim.cmd("cdo s/" .. pattern .. "/" .. replacement .. "/g")
-end, { desc = "Replace the selection with the pattern from the quick fix list" })
+end
+
+-- Replace the first pattern with the second pattern from the quick fix list.
+vim.keymap.set("n", "<leader>pr", replaceFirstWithSecond,
+  { desc = "Replace the first pattern with the second pattern from the quick fix list." }
+)
+vim.keymap.set("n", "<leader>er", replaceFirstWithSecond,
+  { desc = "Replace the first pattern with the second pattern from the quick fix list." }
+)
+
+-- Replace the selection with the pattern from the quick fix list
+vim.keymap.set("x", "<leader>pr", replaceSelectionWithInput,
+  { desc = "Replace the selection with the pattern from the quick fix list" }
+)
+vim.keymap.set("x", "<leader>er", replaceSelectionWithInput,
+  { desc = "Replace the selection with the pattern from the quick fix list" }
+)
 
 
 -- Quick Fix navigation
--- Seems unnecessary at the moment??
----
--- vim.keymap.set("n", "<C-K>", "<cmd>cnext<CR>zz")
--- vim.keymap.set("n", "<C-J>", "<cmd>cprev<CR>zz")
+vim.keymap.set("n", "<C-F>", "<cmd>cnext<CR>zz")
+vim.keymap.set("n", "<C-M>", "<cmd>cprev<CR>zz")
 -- vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
 -- vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 
