@@ -84,20 +84,26 @@ vim.keymap.set("n", "<C-Q>", function()
   api.nvim_out_write(string.format("Deleted %d hidden and unmodified buffers\n", count))
 end, { desc = "Delete all unmodified hidden buffers" })
 
+-- Quick Fix navigation
+vim.keymap.set("n", "<C-F>", "<cmd>cnext<CR>zz")
+vim.keymap.set("n", "<C-M>", "<cmd>cprev<CR>zz")
+-- vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
+-- vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
+
 
 
 local function replaceFirstWithSecond()
   local pattern = vim.fn.input("Enter the pattern to replace: ")
   local replacement = vim.fn.input("Enter the replacement: ")
 
-  vim.cmd("cdo s/" .. pattern .. "/" .. replacement .. "/g")
+  vim.cmd("%s/" .. pattern .. "/" .. replacement .. "/g")
 end
 
 local function replaceSelectionWithInput()
   local pattern = vim.getVisualSelection()
   local replacement = vim.fn.input("Enter the replacement: ")
 
-  vim.cmd("cdo s/" .. pattern .. "/" .. replacement .. "/g")
+  vim.cmd("%s/" .. pattern .. "/" .. replacement .. "/g")
 end
 
 -- Replace the first pattern with the second pattern from the quick fix list.
@@ -115,11 +121,4 @@ vim.keymap.set("x", "<leader>pr", replaceSelectionWithInput,
 vim.keymap.set("x", "<leader>er", replaceSelectionWithInput,
   { desc = "Replace the selection with the pattern from the quick fix list" }
 )
-
-
--- Quick Fix navigation
-vim.keymap.set("n", "<C-F>", "<cmd>cnext<CR>zz")
-vim.keymap.set("n", "<C-M>", "<cmd>cprev<CR>zz")
--- vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
--- vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 
