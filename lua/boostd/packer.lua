@@ -62,6 +62,15 @@ return require('packer').startup(function(use)
     requires = { "nvim-lua/plenary.nvim" }
   }
 
+  -- Refactoring
+  use {
+      "ThePrimeagen/refactoring.nvim",
+      requires = {
+          {"nvim-lua/plenary.nvim"},
+          {"nvim-treesitter/nvim-treesitter"}
+      }
+  }
+
   -- Undo tree
   use('mbbill/undotree')
 
