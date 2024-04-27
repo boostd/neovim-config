@@ -28,7 +28,8 @@ require('mason-lspconfig').setup({
   'rust_analyzer',
   'lua_ls',
   'jdtls',
-  'volar'
+  'volar',
+  'tsserver'
   },
   handlers = {
     lsp_zero.default_setup,
@@ -37,13 +38,26 @@ require('mason-lspconfig').setup({
       lsp_config.lua_ls.setup(lua_opts)
     end,
   },
-
 })
 
--- Use Volar in Take Over Mode (meaning Volar also handles TypeScript)
-lsp_config.volar.setup{
-  filetypes = {'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'json'}
+local vue_language_server_path = require('mason-registry')
+  .get_package('vue-language-server')
+  :get_install_path() .. '/node_modules/@vue/language-server'
+
+-- Use Volar and Typescript in Hybrid mode (meaning Volar only handles HTML/CSS in .vue files)
+lsp_config.tsserver.setup {
+  filetypes = {'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue'},
+  init_options = {
+    plugins = {
+      {
+        name = '@vue/typescript-plugin',
+        location = vue_language_server_path,
+        languages = { 'vue' }
+      }
+    }
+  }
 }
+lsp_config.volar.setup {}
 
 -- Set up autocomplete
 local cmp = require('cmp')
