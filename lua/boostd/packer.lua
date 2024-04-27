@@ -21,6 +21,32 @@ return require('packer').startup(function(use)
   -- Packer can manage itself
   use 'wbthomason/packer.nvim'
 
+  -- LSP support
+  use {
+    'VonHeikemen/lsp-zero.nvim',
+    branch = 'v2.x',
+    requires = {
+      -- LSP Support
+      {'neovim/nvim-lspconfig'},             -- Required
+      {'williamboman/mason.nvim'},           -- Optional
+      {'williamboman/mason-lspconfig.nvim'}, -- Optional
+
+      -- Autocompletion
+      {'hrsh7th/nvim-cmp'},     -- Required
+      {'hrsh7th/cmp-nvim-lsp'}, -- Required
+      {'L3MON4D3/LuaSnip'},     -- Required
+    }
+  }
+
+  -- Java LSP setup
+  use('mfussenegger/nvim-jdtls')
+
+  -- LSP status
+  use({
+    'j-hui/fidget.nvim',
+    tag = 'v1.1.0'
+  })
+
   -- Telescope plugin
   use {
 	  'nvim-telescope/telescope.nvim', tag = '0.1.3',
@@ -93,20 +119,11 @@ return require('packer').startup(function(use)
       end,
   }
 
-  -- Java LSP setup
-  use('mfussenegger/nvim-jdtls')
-
   -- LuaLine statusline
   use {
     'nvim-lualine/lualine.nvim',
     requires = { 'nvim-tree/nvim-web-devicons', opt = true }
   }
-
-  -- LSP status
-  use({
-    'j-hui/fidget.nvim',
-    tag = 'v1.1.0'
-  })
 
   -- Fancy notifications
   use 'rcarriga/nvim-notify'
@@ -134,27 +151,6 @@ return require('packer').startup(function(use)
 
   -- Flash.nvim
   use { 'folke/flash.nvim' }
-
-
-
-  -- LSP support
-  use {
-	  'VonHeikemen/lsp-zero.nvim',
-	  branch = 'v2.x',
-	  requires = {
-		  -- LSP Support
-		  {'neovim/nvim-lspconfig'},             -- Required
-		  {'williamboman/mason.nvim'},           -- Optional
-		  {'williamboman/mason-lspconfig.nvim'}, -- Optional
-
-		  -- Autocompletion
-		  {'hrsh7th/nvim-cmp'},     -- Required
-		  {'hrsh7th/cmp-nvim-lsp'}, -- Required
-		  {'L3MON4D3/LuaSnip'},     -- Required
-	  }
-  }
-
-
 
   -- Automatically install plugins on first startup
   if packer_bootstrap then
