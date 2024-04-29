@@ -52,14 +52,17 @@ return require('packer').startup(function(use)
     "stevearc/conform.nvim",
     requires = {
       {'williamboman/mason.nvim'}
-    },
-    config = function()
-      require("conform").setup()
-    end,
+    }
   })
 
   -- Mason & confrom.nvim integration
-
+  use({
+    "zapling/mason-conform.nvim",
+    requires = {
+      {"williamboman/mason.nvim"},
+      {"stevearc/conform.nvim"}
+    }
+  })
 
   -- Telescope plugin
   use {
