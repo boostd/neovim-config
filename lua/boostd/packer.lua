@@ -47,6 +47,20 @@ return require('packer').startup(function(use)
     tag = 'v1.1.0'
   })
 
+  -- Formatting and linting by conform.nvim
+  use({
+    "stevearc/conform.nvim",
+    requires = {
+      {'williamboman/mason.nvim'}
+    },
+    config = function()
+      require("conform").setup()
+    end,
+  })
+
+  -- Mason & confrom.nvim integration
+
+
   -- Telescope plugin
   use {
 	  'nvim-telescope/telescope.nvim', tag = '0.1.3',
