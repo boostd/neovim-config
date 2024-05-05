@@ -2,177 +2,175 @@
 
 -- Automatically install Packer on startup
 local ensure_packer = function()
-  local fn = vim.fn
-  local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
-  if fn.empty(fn.glob(install_path)) > 0 then
-    fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
-    vim.cmd [[packadd packer.nvim]]
-    return true
-  end
-  return false
+	local fn = vim.fn
+	local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
+	if fn.empty(fn.glob(install_path)) > 0 then
+		fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path })
+		vim.cmd([[packadd packer.nvim]])
+		return true
+	end
+	return false
 end
 
 local packer_bootstrap = ensure_packer()
 
+return require("packer").startup(function(use)
+	-- Packer can manage itself
+	use("wbthomason/packer.nvim")
 
+	-- LSP support
+	use({
+		"VonHeikemen/lsp-zero.nvim",
+		branch = "v2.x",
+		requires = {
+			-- LSP Support
+			{ "neovim/nvim-lspconfig" }, -- Required
+			{ "williamboman/mason.nvim" }, -- Optional
+			{ "williamboman/mason-lspconfig.nvim" }, -- Optional
 
+			-- Autocompletion
+			{ "hrsh7th/nvim-cmp" }, -- Required
+			{ "hrsh7th/cmp-nvim-lsp" }, -- Required
+			{ "L3MON4D3/LuaSnip", run = "make install_jsregexp" }, -- Required
+		},
+	})
 
-return require('packer').startup(function(use)
-  -- Packer can manage itself
-  use 'wbthomason/packer.nvim'
+	-- Java LSP setup
+	use("mfussenegger/nvim-jdtls")
 
-  -- LSP support
-  use {
-    'VonHeikemen/lsp-zero.nvim',
-    branch = 'v2.x',
-    requires = {
-      -- LSP Support
-      {'neovim/nvim-lspconfig'},             -- Required
-      {'williamboman/mason.nvim'},           -- Optional
-      {'williamboman/mason-lspconfig.nvim'}, -- Optional
+	-- LSP status
+	use({
+		"j-hui/fidget.nvim",
+		tag = "v1.1.0",
+	})
 
-      -- Autocompletion
-      {'hrsh7th/nvim-cmp'},     -- Required
-      {'hrsh7th/cmp-nvim-lsp'}, -- Required
-      {'L3MON4D3/LuaSnip'},     -- Required
-    }
-  }
+	-- Formatting and linting by conform.nvim
+	use({
+		"stevearc/conform.nvim",
+		requires = {
+			{ "williamboman/mason.nvim" },
+		},
+	})
 
-  -- Java LSP setup
-  use('mfussenegger/nvim-jdtls')
+	-- Mason & confrom.nvim integration
+	use({
+		"zapling/mason-conform.nvim",
+		requires = {
+			{ "williamboman/mason.nvim" },
+			{ "stevearc/conform.nvim" },
+		},
+	})
 
-  -- LSP status
-  use({
-    'j-hui/fidget.nvim',
-    tag = 'v1.1.0'
-  })
+	-- Telescope plugin
+	use({
+		"nvim-telescope/telescope.nvim",
+		tag = "0.1.3",
+		-- or                            , branch = '0.1.x',
+		requires = { { "nvim-lua/plenary.nvim" } },
+	})
 
-  -- Formatting and linting by conform.nvim
-  use({
-    "stevearc/conform.nvim",
-    requires = {
-      {'williamboman/mason.nvim'}
-    }
-  })
+	-- Dracula theme
+	use({
+		"maxmx03/dracula.nvim",
+		as = "dracula",
+	})
 
-  -- Mason & confrom.nvim integration
-  use({
-    "zapling/mason-conform.nvim",
-    requires = {
-      {"williamboman/mason.nvim"},
-      {"stevearc/conform.nvim"}
-    }
-  })
+	-- Autosave
+	use({
+		"okuuva/auto-save.nvim",
+		config = function()
+			require("auto-save").setup({
+				condition = function(buf)
+					local fn = vim.fn
 
-  -- Telescope plugin
-  use {
-	  'nvim-telescope/telescope.nvim', tag = '0.1.3',
-	  -- or                            , branch = '0.1.x',
-	  requires = { {'nvim-lua/plenary.nvim'} }
-  }
+					-- don't save for special-buffers
+					if fn.getbufvar(buf, "&buftype") ~= "" then
+						return false
+					end
+					return true
+				end,
+			})
+		end,
+	})
 
-  -- Dracula theme
-  use {
-	  'maxmx03/dracula.nvim',
-	  as = "dracula",
-  }
+	-- Treesitter
+	use("nvim-treesitter/nvim-treesitter", { run = ":TSUpdate" })
 
-  -- Autosave
-  use({
-    "okuuva/auto-save.nvim",
-    config = function()
-     require("auto-save").setup {
-      condition = function(buf)
-        local fn = vim.fn
+	-- Harpoon
+	use({
+		"ThePrimeagen/harpoon",
+		branch = "harpoon2",
+		requires = { "nvim-lua/plenary.nvim" },
+	})
 
-        -- don't save for special-buffers
-        if fn.getbufvar(buf, "&buftype") ~= '' then
-          return false
-        end
-        return true
-      end
-    }
-    end,
-  })
+	-- Refactoring
+	use({
+		"ThePrimeagen/refactoring.nvim",
+		requires = {
+			{ "nvim-lua/plenary.nvim" },
+			{ "nvim-treesitter/nvim-treesitter" },
+		},
+	})
 
-  -- Treesitter
-  use('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
+	-- Undo tree
+	use("mbbill/undotree")
 
-  -- Harpoon
-  use {
-    "ThePrimeagen/harpoon",
-    branch = "harpoon2",
-    requires = { "nvim-lua/plenary.nvim" }
-  }
+	-- Git integration
+	use("tpope/vim-fugitive")
 
-  -- Refactoring
-  use {
-      "ThePrimeagen/refactoring.nvim",
-      requires = {
-          {"nvim-lua/plenary.nvim"},
-          {"nvim-treesitter/nvim-treesitter"}
-      }
-  }
+	-- Auto-brackets
+	use({
+		"altermo/ultimate-autopair.nvim",
+		event = { "InsertEnter", "CmdlineEnter" },
+		branch = "v0.6", --recomended as each new version will have breaking changes
+		config = function()
+			require("ultimate-autopair").setup({
+				extensions = {
+					alpha = {
+						p = 30,
+						after = true,
+						no_python = true,
+					},
+				},
+			})
+		end,
+	})
 
-  -- Undo tree
-  use('mbbill/undotree')
+	-- LuaLine statusline
+	use({
+		"nvim-lualine/lualine.nvim",
+		requires = { "nvim-tree/nvim-web-devicons", opt = true },
+	})
 
-  -- Git integration
-  use('tpope/vim-fugitive')
+	-- Fancy notifications
+	use("rcarriga/nvim-notify")
 
-  -- Auto-brackets
-  use {
-      'altermo/ultimate-autopair.nvim',
-      event={'InsertEnter','CmdlineEnter'},
-      branch='v0.6', --recomended as each new version will have breaking changes
-      config=function ()
-          require('ultimate-autopair').setup({
-            extensions={alpha={
-              p=30,
-              after=true,
-              no_python=true
-            }}
-          })
-      end,
-  }
+	-- Leetcode exercises in nvim
+	use({
+		"kawre/leetcode.nvim",
+		requires = { "MunifTanjim/nui.nvim" },
+	})
 
-  -- LuaLine statusline
-  use {
-    'nvim-lualine/lualine.nvim',
-    requires = { 'nvim-tree/nvim-web-devicons', opt = true }
-  }
+	-- Monitor startup time
+	use("dstein64/vim-startuptime")
 
-  -- Fancy notifications
-  use 'rcarriga/nvim-notify'
+	-- vim-illuminate
+	use("RRethy/vim-illuminate")
 
-  -- Leetcode exercises in nvim
-  use {
-    'kawre/leetcode.nvim',
-    requires = { 'MunifTanjim/nui.nvim' }
-  }
+	-- quick actions with surrounding
+	use({
+		"kylechui/nvim-surround",
+		tag = "*", -- Use for stability; omit to use `main` branch for the latest features
+		config = function()
+			require("nvim-surround").setup({})
+		end,
+	})
 
-  -- Monitor startup time
-  use('dstein64/vim-startuptime')
+	-- Flash.nvim
+	use({ "folke/flash.nvim" })
 
-  -- vim-illuminate
-  use('RRethy/vim-illuminate')
-
-  -- quick actions with surrounding
-  use({
-      "kylechui/nvim-surround",
-      tag = "*", -- Use for stability; omit to use `main` branch for the latest features
-      config = function()
-          require("nvim-surround").setup({})
-      end
-  })
-
-  -- Flash.nvim
-  use { 'folke/flash.nvim' }
-
-  -- Automatically install plugins on first startup
-  if packer_bootstrap then
-    require('packer').sync()
-  end
-
+	-- Automatically install plugins on first startup
+	if packer_bootstrap then
+		require("packer").sync()
+	end
 end)
-

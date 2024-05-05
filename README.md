@@ -17,4 +17,11 @@ Getting treesitter working is a hassle. Try these 3 things:
 - Run `:TSUpdate` to get and compile new parsers
     - Alternatively run `:TSInstall *language*` to get and compile the new parser (might be necessary for specific languages)
 
+Install fd and ripgrep:
+    - `choco install ripgrep`
+    - `choco install fd`
+
+Install pwsh:
+    - `winget install --id Microsoft.Powershell --source winget`
+
 `:checkhealth` will still stay in the warning state, don't be alarmed by that.
