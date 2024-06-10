@@ -48,6 +48,10 @@ vim.keymap.set("n", "<leader><leader>", function()
 	vim.cmd("so")
 end)
 
+-- Exit from select mode using arrow keys
+vim.keymap.set("s", "<Up>", "<Esc><Up>")
+vim.keymap.set("s", "<Down>", "<Esc><Down>")
+
 -- Efficient movement between windows
 vim.keymap.set({ "n", "v" }, "<leader>hh", "<C-w>h")
 vim.keymap.set({ "n", "v" }, "<leader>ll", "<C-w>l")
