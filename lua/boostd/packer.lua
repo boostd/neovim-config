@@ -157,6 +157,14 @@ return require("packer").startup(function(use)
 	-- vim-illuminate
 	use("RRethy/vim-illuminate")
 
+	-- live renaming preview
+	use({
+		"smjonas/inc-rename.nvim",
+		config = function()
+			require("inc_rename").setup()
+		end,
+	})
+
 	-- quick actions with surrounding
 	use({
 		"kylechui/nvim-surround",
