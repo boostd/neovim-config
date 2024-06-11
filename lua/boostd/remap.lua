@@ -57,6 +57,10 @@ vim.keymap.set({ "n", "v" }, "<leader>hh", "<C-w>h")
 vim.keymap.set({ "n", "v" }, "<leader>ll", "<C-w>l")
 vim.keymap.set({ "n", "v" }, "<leader>kk", "<C-w>k")
 vim.keymap.set({ "n", "v" }, "<leader>jj", "<C-w>j")
+vim.keymap.set({ "n", "v" }, "<leader><Left>", "<C-w>h")
+vim.keymap.set({ "n", "v" }, "<leader><Right>", "<C-w>l")
+vim.keymap.set({ "n", "v" }, "<leader><Up>", "<C-w>k")
+vim.keymap.set({ "n", "v" }, "<leader><Down>", "<C-w>j")
 
 -- Close buffers easily
 vim.keymap.set("n", "<leader>q", "<C-w>q")
