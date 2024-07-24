@@ -19,14 +19,14 @@ require("conform").setup({
 			end
 		end
 
-		return { timeout_ms = 500, lsp_fallback = false }, on_format
+		return { timeout_ms = 500, lsp_fallback = "never" }, on_format
 	end,
 
 	format_after_save = function(bufnr)
 		if not slow_format_filetypes[vim.bo[bufnr].filetype] then
 			return
 		end
-		return { lsp_fallback = false }
+		return { lsp_fallback = "never" }
 	end,
 	formatters_by_ft = {
 		lua = { "stylua" },
