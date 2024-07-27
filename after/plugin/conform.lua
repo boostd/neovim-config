@@ -31,9 +31,9 @@ require("conform").setup({
 	formatters_by_ft = {
 		lua = { "stylua" },
 		python = { "black" },
-		javascript = { { "prettierd", "prettier" }, "eslint_d" },
-		typescript = { { "prettierd", "prettier" }, "eslint_d" },
-		vue = { { "prettierd", "prettier" }, "eslint_d" },
+		javascript = { "prettierd", "eslint_d" },
+		typescript = { "prettierd", "eslint_d" },
+		vue = { "prettierd", "eslint_d" },
 	},
 })
 
